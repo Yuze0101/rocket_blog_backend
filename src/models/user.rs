@@ -7,12 +7,12 @@ use diesel::{
     sql_types::Integer,
     Queryable, Selectable,
 };
+use rocket::serde::{Deserialize, Serialize};
 use rocket_db_pools::diesel::Insertable;
-use serde::{Deserialize, Serialize};
 
 #[repr(i32)]
 #[derive(AsExpression, FromSqlRow, Deserialize, Serialize, Debug)]
-#[sql_type = "Integer"]
+#[diesel(sql_type = Integer)]
 pub enum Gender {
     Male = 1,
     Female = 2,
@@ -53,15 +53,16 @@ pub struct User {
     name: String,
     gender: Gender,
     age: i32,
+    password: String,
 }
 
-impl User {
-    pub fn new(id: i32, name: &str, gender: Gender, age: i32) -> Self {
-        Self {
-            id,
-            name: name.to_string(),
-            gender,
-            age,
-        }
-    }
-}
+// impl User {
+//     pub fn new(id: i32, name: String, gender: Gender, age: i32) -> Self {
+//         Self {
+//             id,
+//             name,
+//             gender,
+//             age,
+//         }
+//     }
+// }

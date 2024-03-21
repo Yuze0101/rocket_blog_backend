@@ -6,7 +6,7 @@ mod routes;
 mod schemas;
 mod utils;
 
-use routes::register::register;
+use routes::register::{register, test_get_users};
 
 #[get("/")]
 fn index() -> &'static str {
@@ -17,5 +17,5 @@ fn index() -> &'static str {
 fn rocket() -> _ {
     rocket::build()
         .mount("/", routes![index])
-        .mount("/register", routes![register])
+        .mount("/register", routes![register, test_get_users])
 }
